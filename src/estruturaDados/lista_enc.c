@@ -21,13 +21,10 @@ int insereListaEnc(ListaEnc *lista, Carta carta) {
     novoNodo->prox = NULL;
 
     if (lista->prim == NULL) {
-        lista->prim = novoNodo;
+        lista->prim = novoNodo; 
     } else {
-        NodoBaralho *atual = lista->prim;
-        while (atual->prox != NULL) {
-            atual = atual->prox;
-        }
-        atual->prox = novoNodo;
+        novoNodo->prox = lista->prim;
+        lista->prim = novoNodo;
     }
     return 1;
 }

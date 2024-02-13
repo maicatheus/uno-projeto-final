@@ -62,11 +62,11 @@ void destroiPilhaEnc(PilhaBaralho *pilha){
 
 // Funcao que insere um elemento na pilha
 void empilhaPilhaEnc(PilhaBaralho *pilha, Carta carta){
-   NodoBaralho *novo = (NodoBaralho*)malloc(sizeof(NodoBaralho));
-   if (novo != NULL){ // Idealmente, sempre checar!
-      novo->carta = carta;
-      novo->prox = pilha->topo;
-      pilha->topo = novo;
+    NodoBaralho *novo = (NodoBaralho*)malloc(sizeof(NodoBaralho));
+    if (novo != NULL){ // Idealmente, sempre checar!
+    novo->carta = carta;
+    novo->prox = pilha->topo;
+    pilha->topo = novo;
    }
 }
 
@@ -74,13 +74,13 @@ void empilhaPilhaEnc(PilhaBaralho *pilha, Carta carta){
 
 // Funcao que remove um elemento da pilha
 Carta desempilhaPilhaEnc(PilhaBaralho* pilha){
-   NodoBaralho *aux = pilha->topo;
-   /* Aqui assumimos que desempilha eh
+    NodoBaralho *aux = pilha->topo;
+/* Aqui assumimos que desempilha eh
    chamada apenas se a pilha nao eh vazia */
-   Carta info = aux->carta;
-   pilha->topo = aux->prox;
-   free(aux);
-   return info;
+    Carta info = aux->carta;
+    pilha->topo = aux->prox;
+    free(aux);
+    return info;
 }
 
 // Funcao que determina se uma pilha eh vazia
@@ -88,12 +88,12 @@ int vaziaPilhaEnc(PilhaBaralho *pilha){
    return (pilha->topo == NULL);
 }
 
-void embaralhaCartas(Carta cartas[], int tamanho) {
+void embaralhaCartas(NodoBaralho *nodos[], int tamanho) {
     for (int i = 0; i < tamanho; i++) {
         int j = rand() % tamanho;
-        Carta temp = cartas[i];
-        cartas[i] = cartas[j];
-        cartas[j] = temp;
+        NodoBaralho *temp = nodos[i];
+        nodos[i] = nodos[j];
+        nodos[j] = temp;
     }
 }
 
@@ -108,18 +108,19 @@ void embaralhaPilhaEnc(PilhaBaralho *pilha) {
         atual = atual->prox;
     }
 
-    Carta cartas[tamanho];
+    NodoBaralho *nodos[tamanho];
 
     atual = pilha->topo;
     for (int i = 0; i < tamanho; i++) {
-        cartas[i] = atual->carta;
+        nodos[i] = atual;
         atual = atual->prox;
     }
 
-    embaralhaCartas(cartas, tamanho);
+    embaralhaCartas(nodos, tamanho);
 
     pilha->topo = NULL;
     for (int i = 0; i < tamanho; i++) {
-        empilhaPilhaEnc(pilha, cartas[i]);
+        nodos[i]->prox = pilha->topo;
+        pilha->topo = nodos[i];
     }
 }

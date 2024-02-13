@@ -1,6 +1,7 @@
 #ifndef _LISTA_CIRUCLAR_H_
 #define _LISTA_CIRUCLAR_H_
 
+#include "jogador.h"
 typedef struct ListaCircular{
    NodoBaralho *prim;
 } ListaCircular;
