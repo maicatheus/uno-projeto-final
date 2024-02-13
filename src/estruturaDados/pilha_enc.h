@@ -1,10 +1,6 @@
 #ifndef _PILHA_ENC_H_
 #define _PILHA_ENC_H_
 
-typedef struct pilhaEnc{
-   Nodo *topo;
-} PilhaEnc;
-
 typedef struct pilhaBaralho{
    NodoBaralho *topo;
 } PilhaBaralho;

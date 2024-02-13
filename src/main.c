@@ -2,47 +2,46 @@
 #include <string.h>
 #include "estruturaDados/estruturas.h"
 #include "estruturaDados/pilha_enc.h"
-#include "estruturaDados/lista_enc.h"
-#include "estruturaDados/lista_enc_dupla.h"
+#include "estruturaDados/lista_circular.h"
 #include "raylib.h"
 
 
 
 int main(){
 
-   PilhaBaralho *baralho;
-   baralho = criaPilhaEnc();
-   inicializaBaralho(baralho);
+    PilhaBaralho *baralho;
+    baralho = criaPilhaEnc();
+    inicializaBaralho(baralho);
 
+    embaralhaPilhaEnc(baralho);
 
-    const int screenWidth = 800;
-    const int screenHeight = 450;
-    InitWindow(screenWidth, screenHeight, "raylib - Mostrar imagem");
+    int numJogadores = 0;
+    do {
+        printf("Quantos jogadores vão jogar? (entre 2 e 4): ");
+        scanf("%d", &numJogadores);
+        if (numJogadores < 2 || numJogadores > 4) {
+            printf("Número inválido de jogadores. Por favor, insira um número entre 2 e 4.\n");
+        }
+    } while (numJogadores < 1 || numJogadores > 4);
 
-    // Carrega a imagem
-    Texture2D texture = LoadTexture("resources/imagens/cartas/card_0_0.png");
-      
-    // Configura a posição inicial para desenhar a imagem (centro da tela)
-    Vector2 position = {(screenWidth - texture.width) / 2.0f, (screenHeight - texture.height) / 2.0f};
+    Jogador *listaJogadores = NULL;
 
-    // Define a cor de fundo da janela (opcional)
-    SetTargetFPS(60); // Define a taxa de atualização da tela
+    for (int i = 0; i < numJogadores; i++) {
+        char nomeJogador[TAM_MAX_NOME];
+        printf("Digite o nome do jogador %d: ", i + 1);
+        scanf("%s", nomeJogador);
 
-    // Loop principal
-    while (!WindowShouldClose()) { // Detecta o pedido de fechamento da janela
-        BeginDrawing();
-
-        ClearBackground(RAYWHITE); // Limpa a tela com cor branca
-
-        // Desenha a imagem na posição especificada
-        DrawTexture(texture, position.x, position.y, WHITE); // WHITE significa sem coloração
-
-        EndDrawing();
+        Jogador *novoJogador = criaJogador(nomeJogador);
+        insereJogador(&listaJogadores, novoJogador); 
     }
 
-    // Limpeza e fechamento
-    UnloadTexture(texture); // Libera a memória da textura
-    CloseWindow(); // Fecha a janela
+    imprimeJogadores(listaJogadores);
+    
+    int gameOver = 0;
 
+    while(!gameOver){
+
+
+    }
     return 0;
 }
