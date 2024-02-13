@@ -1,5 +1,5 @@
-#include "estruturas.h"
-#include "lista_circular.h"
+#include "includes/baralho.h"
+#include "includes/lista_circular.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

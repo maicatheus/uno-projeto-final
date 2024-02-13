@@ -1,5 +1,5 @@
-#include "estruturas.h"
-#include "pilha_enc.h"
+#include "includes/baralho.h"
+#include "includes/pilha_enc.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h> 
