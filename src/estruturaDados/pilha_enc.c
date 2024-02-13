@@ -2,6 +2,7 @@
 #include "pilha_enc.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h> 
 
 // Funcao que cria uma pilha
 PilhaBaralho* criaPilhaEnc(){
@@ -16,7 +17,7 @@ void inicializaBaralho(PilhaBaralho *baralho){
     Carta cartas[108];
     int j = 0,tamanhoBaralho = 0;
 
-    for (int cor = VERDE; cor <= VERMELHO; cor++){
+    for (int cor = VERMELHO; cor <= VERDE; cor++){
         for (int valor = ZERO; valor <= COMPRA_DOIS; valor++){
             cartas[tamanhoBaralho].cor = cor;
             cartas[tamanhoBaralho].valorCor = valor;
@@ -85,4 +86,40 @@ Carta desempilhaPilhaEnc(PilhaBaralho* pilha){
 // Funcao que determina se uma pilha eh vazia
 int vaziaPilhaEnc(PilhaBaralho *pilha){
    return (pilha->topo == NULL);
+}
+
+void embaralhaCartas(Carta cartas[], int tamanho) {
+    for (int i = 0; i < tamanho; i++) {
+        int j = rand() % tamanho;
+        Carta temp = cartas[i];
+        cartas[i] = cartas[j];
+        cartas[j] = temp;
+    }
+}
+
+void embaralhaPilhaEnc(PilhaBaralho *pilha) {
+    if (pilha == NULL || pilha->topo == NULL)
+        return;
+
+    int tamanho = 0;
+    NodoBaralho *atual = pilha->topo;
+    while (atual != NULL) {
+        tamanho++;
+        atual = atual->prox;
+    }
+
+    Carta cartas[tamanho];
+
+    atual = pilha->topo;
+    for (int i = 0; i < tamanho; i++) {
+        cartas[i] = atual->carta;
+        atual = atual->prox;
+    }
+
+    embaralhaCartas(cartas, tamanho);
+
+    pilha->topo = NULL;
+    for (int i = 0; i < tamanho; i++) {
+        empilhaPilhaEnc(pilha, cartas[i]);
+    }
 }

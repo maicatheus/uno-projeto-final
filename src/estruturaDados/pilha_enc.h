@@ -27,4 +27,6 @@ Carta desempilhaPilhaEnc(PilhaBaralho *pilha);
 // Funcao que determina se uma pilha eh vazia
 int vaziaPilhaEnc(PilhaBaralho* pilha);
 
+void embaralhaPilhaEnc(PilhaBaralho *pilha);
+
 #endif
