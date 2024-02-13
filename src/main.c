@@ -66,15 +66,16 @@ int main(){
     PilhaBaralho * mesa = criaPilhaEnc();
 
     while(!gameOver){
-        printf("Jogada: %s\n", jogadorAtual->nome);
 
         if(mesa->topo == NULL){
             Carta carta = desempilhaPilhaEnc(baralho);
-            printf("mesa nula\n");
             empilhaPilhaEnc(mesa,carta);
         }
 
-
+        printf("\n\nMESA: \n");
+        
+        mostrarCarta(mesa->topo->carta);
+        mostrarMao(jogadorAtual);
 
         printf("Aperte enter para continuar\n");
         getchar();

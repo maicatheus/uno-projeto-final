@@ -28,3 +28,9 @@ int insereListaEnc(ListaEnc *lista, Carta carta) {
     }
     return 1;
 }
+
+void listarLista(ListaEnc *lista) {
+    for(NodoBaralho *nodoBaralho = lista->prim; nodoBaralho != NULL; nodoBaralho = nodoBaralho->prox) {
+        mostrarCarta(nodoBaralho->carta);
+    }
+}

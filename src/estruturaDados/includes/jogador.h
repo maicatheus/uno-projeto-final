@@ -12,5 +12,6 @@ typedef struct jogador{
    struct jogador *ant;  
 } Jogador;
 
+void mostrarMao(Jogador* jogador);
 
 #endif

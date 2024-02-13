@@ -12,4 +12,12 @@ typedef struct carta{
     Especiais especiais;
 } Carta;
 
+const char* nomeCor(Cores cor);
+
+const char* nomeEspecial(Especiais especial);
+
+const char* nomeValor(ValoresCor valor);
+
+void mostrarCarta(Carta carta);
+
 #endif
