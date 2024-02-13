@@ -23,7 +23,7 @@ int main(){
         if (numJogadores < 2 || numJogadores > 4) {
             printf("Número inválido de jogadores. Por favor, insira um número entre 2 e 4.\n");
         }
-    } while (numJogadores < 1 || numJogadores > 4);
+    } while (numJogadores < 2 || numJogadores > 4);
 
     Jogador *listaJogadores = NULL;
 
