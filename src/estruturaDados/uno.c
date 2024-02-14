@@ -6,28 +6,35 @@
 #include "includes/uno.h"
 #include "includes/cartas.h"
 
-void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, StatusJogada* statusJogada) {
+void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, StatusJogada* statusJogada) {
+    int erro = 0;
 
-    if(vaziaPilhaEnc(baralho)){
-        colocaMesaNoBaralho(mesa,baralho);
+    if (vaziaPilhaEnc(baralho)) {
+        colocaMesaNoBaralho(mesa, baralho);
     }
 
     statusJogada->jogadaPermitida = 0;
 
-    printf("\n\nMESA:\n");
-    if(statusJogada->jogadaEspecial == 1)
-        mostrarCorEscolhida(statusJogada);
-    else
-        mostrarCarta(mesa->topo->carta, -1);
-
-    ListaEnc* maoDoJogador = jogador->mao;
-
-    mostrarMao(jogador);
-    mostrarOpcaoCompraBaralho();
-
     int opc;
     int flgContinuar = 0;
     do {
+        printf("\033[2J\033[H");
+        printf("\n\nMESA:\n");
+        if (statusJogada->jogadaEspecial == 1)
+            mostrarCorEscolhida(statusJogada);
+        else
+            mostrarCarta(mesa->topo->carta, -1);
+
+        ListaEnc* maoDoJogador = jogador->mao;
+
+        mostrarMao(jogador);
+        mostrarOpcaoCompraBaralho();
+
+        if (erro) { 
+            printf("\033[1;31mErro: %s\033[0m\n", "Número inválido. Escolha um número dentro do intervalo de cartas ou 'c' para comprar.");
+            erro = 0; 
+        }
+
         printf("\n\nEscolha uma opcao: ");
         char input[2];
         scanf("%s", input);
@@ -35,25 +42,22 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, S
 
         if (input[0] == 'c') {
             comprarCartas(jogador, baralho, 1);
-            mostrarMao(jogador);
-            mostrarOpcaoCompraBaralho();
             continue;
         }
 
         opc = atoi(input);
         if (opc <= 0 || opc > maoDoJogador->numCartas) {
-            printf("Número inválido. Escolha um número dentro do intervalo de cartas ou 'c' para comprar.\n");
-            continue; 
+            erro = 1; 
+            continue;
         }
 
         NodoBaralho* nodoBaralhoJogador = buscarCartaBaralhoAPartirDoIndice(maoDoJogador, opc);
         Carta carta = nodoBaralhoJogador->carta;
         if (nodoBaralhoJogador == NULL) {
-            printf("Carta não encontrada na mão do jogador.\n");
-            continue; 
+            erro = 1; 
+            continue;
         }
 
-        
         validarJogada(nodoBaralhoJogador, mesa->topo, statusJogada);
 
         if (statusJogada->jogadaPermitida) {
@@ -61,12 +65,13 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, S
             empilhaPilhaEnc(mesa, carta);
             flgContinuar = 1;
         } else {
-            printf("A carta escolhida não pode ser jogada nesta rodada.\n");
-            continue; 
+            erro = 1;
+            continue;
         }
 
     } while (!flgContinuar);
 }
+
 
 void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa, StatusJogada* statusJogada) {
 
@@ -114,26 +119,11 @@ void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa
     }
 }
 
-void escolherCorPorTerJogadoCartaEspecial(StatusJogada* statusJogada){
-    int i = 1;
-    for (int cor = VERMELHO; cor <= VERDE; cor++){
-        printf("\t%-3d\t%-10s\t\n",i, nomeCor(cor));
-        i++;
-    }
-    int opc;
-    printf("Escolha a cor da proxima jogada:\n");
-    scanf("%d", &opc);
-    getchar();
-    statusJogada->carta.cor=opc;
-}
-
 int checarEspecialOuSacanas(StatusJogada* statusJogada){
     return statusJogada->jogadaEspecial == 1 || statusJogada->jogadaSacana == 1;
 }
 
-void mostrarCorEscolhida(StatusJogada* statusJogada){
-    printf("\nCor Escolhida: %s\n", nomeCor(statusJogada->carta.cor));
-}
+
 
 StatusJogada* contrutorStatusJogada(){
     StatusJogada *statusJogada = (StatusJogada*)malloc(sizeof(StatusJogada));

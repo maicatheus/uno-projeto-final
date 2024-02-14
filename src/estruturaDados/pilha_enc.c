@@ -127,6 +127,7 @@ void embaralhaPilhaEnc(PilhaBaralho *pilha) {
 }
 
 void colocaMesaNoBaralho(PilhaBaralho* mesa,PilhaBaralho* baralho){
+    printf("\n\033[1;32m\033[42mRecolocando mesa no baralho\033[0m\n");
     Carta cartaDeCimaDaMesa = desempilhaPilhaEnc(mesa);
     embaralhaPilhaEnc(mesa);
 
@@ -134,7 +135,7 @@ void colocaMesaNoBaralho(PilhaBaralho* mesa,PilhaBaralho* baralho){
         Carta carta = desempilhaPilhaEnc(mesa);
         empilhaPilhaEnc(baralho,carta);
     }
-    
+
     empilhaPilhaEnc(mesa,cartaDeCimaDaMesa);
 
 }

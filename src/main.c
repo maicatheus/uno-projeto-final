@@ -58,6 +58,7 @@ int main(){
     PilhaBaralho * mesa = criaPilhaEnc();
     Carta cartaMesa;
     int flgSentidoHorario = 1;
+    int flgPrimeiraRodada = 1;
     while(!statusJogada->gameOver){
 
         if(mesa->topo == NULL){
@@ -68,6 +69,15 @@ int main(){
         cartaMesa = mesa->topo->carta;
 
         int ehSacanaOuEspecial = checarEspecialOuSacanas(statusJogada);
+        
+        if (flgPrimeiraRodada && 
+            ((cartaMesa.especiais == MUDA_COR || cartaMesa.especiais == COMPRA_QUATRO) ||
+              cartaMesa.valorCarta == PULA || cartaMesa.valorCarta == INVERTE || cartaMesa.valorCarta == COMPRA_DOIS)){
+            Carta carta = desempilhaPilhaEnc(baralho);
+            empilhaPilhaEnc(mesa,carta);
+            flgPrimeiraRodada = 0;
+        }
+
         //IMPLEMENTAR =-=-=-=-=-=- DEVOLVER O COMPRA QUADRO PRO BARALHO SE FOR A CARTA
         if(ehSacanaOuEspecial){
             if(statusJogada->jogadaEspecial == 1){
