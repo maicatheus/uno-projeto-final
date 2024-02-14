@@ -94,7 +94,10 @@ int main(){
                 }
 
                 if(statusJogada->carta.valorCarta == PULA)
-                    jogadorAtual = jogadorAtual->prox;
+                    if(flgSentidoHorario)
+                        jogadorAtual = jogadorAtual->prox;
+                    else
+                        jogadorAtual = jogadorAtual->ant;
 
                 if(statusJogada->carta.valorCarta == INVERTE){
                     flgSentidoHorario = !flgSentidoHorario;

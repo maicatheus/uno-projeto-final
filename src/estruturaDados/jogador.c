@@ -9,10 +9,10 @@ void mostrarMao(Jogador* jogador){
 }
 
 void comprarCartas(Jogador* jogador, PilhaBaralho* baralho, PilhaBaralho* mesa ,int numeroCartasParaComprar){
-    for(int i = 0; i< numeroCartasParaComprar; i++)
-        
+    for(int i = 0; i< numeroCartasParaComprar; i++){
         if(vaziaPilhaEnc(baralho))
             colocaMesaNoBaralho(mesa,baralho);
 
         insereListaEnc(jogador->mao,desempilhaPilhaEnc(baralho));
+    }
 }

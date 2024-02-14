@@ -82,6 +82,11 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
             printf("\033[1;31mErro: %s\033[0m\n", "Esqueceu de gritar uno! Comprando 5 cartas.");
             comprarCartas(jogador,baralho,mesa,5);
         }
+            
+        if(jogador->mao->numCartas == 0 && jogador->disseUno==1){
+            printf("\033[0;32mGANHOU!!!: JOGADOR %s!!\033[0m\n", jogador->nome);
+            statusJogada->gameOver=1;
+        }
 
     } while (!flgContinuar);
 }
