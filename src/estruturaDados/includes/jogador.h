@@ -1,4 +1,5 @@
 #include "lista_enc.h"
+#include "pilha_enc.h"
 #ifndef _JOGADOR_H_
 #define _JOGADOR_H_
 
@@ -14,4 +15,5 @@ typedef struct jogador{
 
 void mostrarMao(Jogador* jogador);
 
+void comprarCartas(Jogador* jogador, PilhaBaralho* baralho ,int numeroCartasParaComprar);
 #endif

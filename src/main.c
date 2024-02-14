@@ -51,21 +51,13 @@ int main(){
 
         novoJogador->mao = mao;
     }
-
-
-    // Carta infoAux;
-    // int i = 0;
-    // while (!vaziaPilhaEnc(baralho)){
-    //     infoAux = desempilhaPilhaEnc(baralho);
-    //     printf("%d -> %d | %d (%d)\n",i+1, infoAux.cor, infoAux.valorCarta, infoAux.especiais);
-    //     i++;
-    // }
     
     StatusJogada* statusJogada = contrutorStatusJogada();
 
     Jogador *jogadorAtual = listaJogadores;
     PilhaBaralho * mesa = criaPilhaEnc();
     Carta cartaMesa;
+    int flgSentidoHorario = 1;
     while(!statusJogada->gameOver){
 
         if(mesa->topo == NULL){
@@ -75,10 +67,40 @@ int main(){
 
         cartaMesa = mesa->topo->carta;
 
+        int ehSacanaOuEspecial = checarEspecialOuSacanas(statusJogada);
+        //IMPLEMENTAR =-=-=-=-=-=- DEVOLVER O COMPRA QUADRO PRO BARALHO SE FOR A CARTA
+        if(ehSacanaOuEspecial){
+            if(statusJogada->jogadaEspecial == 1){
+                if(statusJogada->carta.especiais == COMPRA_QUATRO){
+                    comprarCartas(jogadorAtual,baralho,4);
+
+                }
+            }
+            if(statusJogada->jogadaSacana == 1){
+                if(statusJogada->carta.valorCarta == COMPRA_DOIS){
+                    comprarCartas(jogadorAtual,baralho,2);
+                }
+
+                if(statusJogada->carta.valorCarta == PULA)
+                    jogadorAtual = jogadorAtual->prox;
+
+                if(statusJogada->carta.valorCarta == INVERTE){
+                    flgSentidoHorario = !flgSentidoHorario;
+                    if(flgSentidoHorario)
+                        jogadorAtual = jogadorAtual->prox->prox;
+                    else
+                        jogadorAtual = jogadorAtual->ant->ant;
+
+                }
+            }
+        }
         efetuarJogada(jogadorAtual,mesa,statusJogada);
         printf("Aperte enter para continuar\n");
         getchar();
-        jogadorAtual = jogadorAtual->prox;
+        if(flgSentidoHorario)
+            jogadorAtual = jogadorAtual->prox;
+        else
+            jogadorAtual = jogadorAtual->ant;
     }
     return 0;
 }

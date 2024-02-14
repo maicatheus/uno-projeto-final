@@ -89,6 +89,7 @@ int vaziaPilhaEnc(PilhaBaralho *pilha){
 }
 
 void embaralhaCartas(NodoBaralho *nodos[], int tamanho) {
+    srand(time(NULL));
     for (int i = 0; i < tamanho; i++) {
         int j = rand() % tamanho;
         NodoBaralho *temp = nodos[i];
