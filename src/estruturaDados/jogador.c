@@ -8,7 +8,11 @@ void mostrarMao(Jogador* jogador){
     listarLista(jogador->mao);
 }
 
-void comprarCartas(Jogador* jogador, PilhaBaralho* baralho ,int numeroCartasParaComprar){
+void comprarCartas(Jogador* jogador, PilhaBaralho* baralho, PilhaBaralho* mesa ,int numeroCartasParaComprar){
     for(int i = 0; i< numeroCartasParaComprar; i++)
+        
+        if(vaziaPilhaEnc(baralho))
+            colocaMesaNoBaralho(mesa,baralho);
+
         insereListaEnc(jogador->mao,desempilhaPilhaEnc(baralho));
 }

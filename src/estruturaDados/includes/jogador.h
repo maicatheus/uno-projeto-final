@@ -15,5 +15,5 @@ typedef struct jogador{
 
 void mostrarMao(Jogador* jogador);
 
-void comprarCartas(Jogador* jogador, PilhaBaralho* baralho ,int numeroCartasParaComprar);
+void comprarCartas(Jogador* jogador, PilhaBaralho* baralho, PilhaBaralho* mesa ,int numeroCartasParaComprar);
 #endif

@@ -28,7 +28,7 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
         ListaEnc* maoDoJogador = jogador->mao;
 
         mostrarMao(jogador);
-        mostrarOpcaoCompraBaralho();
+        mostrarOpcaoCompraBaralho(jogador);
 
         if (erro) { 
             printf("\033[1;31mErro: %s\033[0m\n", "Número inválido. Escolha um número dentro do intervalo de cartas ou 'c' para comprar.");
@@ -40,8 +40,17 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
         scanf("%s", input);
         getchar();
 
+        if(jogador->mao->numCartas > 1){
+            jogador->disseUno = 0;
+        }
+        
+        if (input[0] == 'u') {
+            jogador->disseUno = 1;
+            continue;
+        }
+
         if (input[0] == 'c') {
-            comprarCartas(jogador, baralho, 1);
+            comprarCartas(jogador,baralho,mesa,1);
             continue;
         }
 
@@ -69,17 +78,17 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
             continue;
         }
 
+        if(jogador->mao->numCartas == 0 && jogador->disseUno==0){
+            printf("\033[1;31mErro: %s\033[0m\n", "Esqueceu de gritar uno! Comprando 5 cartas.");
+            comprarCartas(jogador,baralho,mesa,5);
+        }
+
     } while (!flgContinuar);
 }
 
 
 void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa, StatusJogada* statusJogada) {
 
-    if (statusJogada->jogadaEspecial == 1){
-        if(nodoBaralhoJogador->carta.cor == statusJogada->carta.cor){
-            statusJogada->jogadaPermitida=1;
-        }
-    }
 
     if (statusJogada->jogadaEspecial == 0){
         if (nodoBaralhoJogador->carta.valorCarta == nodoBaralhoMesa->carta.valorCarta || 
@@ -94,17 +103,20 @@ void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa
             statusJogada->jogadaSacana = 0;
         }
     }
-
+    if (statusJogada->jogadaEspecial == 1){
+        if(nodoBaralhoJogador->carta.cor == statusJogada->carta.cor){
+            statusJogada->jogadaPermitida=1;
+            statusJogada->jogadaEspecial=0;
+        }
+    }
     if (statusJogada->jogadaPermitida==1 &&
         (nodoBaralhoJogador->carta.valorCarta == PULA ||
         nodoBaralhoJogador->carta.valorCarta == INVERTE ||
         nodoBaralhoJogador->carta.valorCarta == COMPRA_DOIS)){
     
-            statusJogada->jogadaPermitida = 1;
             statusJogada->jogadaEspecial = 0;
             statusJogada->jogadaSacana = 1;
             statusJogada->carta.valorCarta = nodoBaralhoJogador->carta.valorCarta;
-
     }
 
 
@@ -139,6 +151,8 @@ StatusJogada* contrutorStatusJogada(){
     return statusJogada;
 }
 
-void mostrarOpcaoCompraBaralho(){
+void mostrarOpcaoCompraBaralho(Jogador* jogador){
     printf("\t%-3s\t%-10s\t\n","c", "comprar uma ");
+    if(jogador->mao->numCartas == 1)
+        printf("\t%-3s\t%-10s\t\n","u", "GRITAR UNO! ");
 }

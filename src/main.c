@@ -70,25 +70,27 @@ int main(){
 
         int ehSacanaOuEspecial = checarEspecialOuSacanas(statusJogada);
         
-        if (flgPrimeiraRodada && 
-            ((cartaMesa.especiais == MUDA_COR || cartaMesa.especiais == COMPRA_QUATRO) ||
-              cartaMesa.valorCarta == PULA || cartaMesa.valorCarta == INVERTE || cartaMesa.valorCarta == COMPRA_DOIS)){
-            Carta carta = desempilhaPilhaEnc(baralho);
-            empilhaPilhaEnc(mesa,carta);
-            flgPrimeiraRodada = 0;
-        }
+        while(flgPrimeiraRodada){
+            if(cartaMesa.especiais == MUDA_COR || cartaMesa.especiais == COMPRA_QUATRO ||
+                cartaMesa.valorCarta == PULA || cartaMesa.valorCarta == INVERTE || 
+                cartaMesa.valorCarta == COMPRA_DOIS){
+                cartaMesa = desempilhaPilhaEnc(baralho);
+                empilhaPilhaEnc(mesa,cartaMesa);
+            }else
+                flgPrimeiraRodada = 0;
+        } 
 
         //IMPLEMENTAR =-=-=-=-=-=- DEVOLVER O COMPRA QUADRO PRO BARALHO SE FOR A CARTA
         if(ehSacanaOuEspecial){
             if(statusJogada->jogadaEspecial == 1){
                 if(statusJogada->carta.especiais == COMPRA_QUATRO){
-                    comprarCartas(jogadorAtual,baralho,4);
+                    comprarCartas(jogadorAtual,baralho,mesa,4);
 
                 }
             }
             if(statusJogada->jogadaSacana == 1){
                 if(statusJogada->carta.valorCarta == COMPRA_DOIS){
-                    comprarCartas(jogadorAtual,baralho,2);
+                    comprarCartas(jogadorAtual,baralho,mesa,2);
                 }
 
                 if(statusJogada->carta.valorCarta == PULA)

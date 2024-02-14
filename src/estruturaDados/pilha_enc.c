@@ -89,7 +89,7 @@ int vaziaPilhaEnc(PilhaBaralho *pilha){
 }
 
 void embaralhaCartas(NodoBaralho *nodos[], int tamanho) {
-    srand(time(NULL));
+    srand(3);
     for (int i = 0; i < tamanho; i++) {
         int j = rand() % tamanho;
         NodoBaralho *temp = nodos[i];
@@ -127,7 +127,7 @@ void embaralhaPilhaEnc(PilhaBaralho *pilha) {
 }
 
 void colocaMesaNoBaralho(PilhaBaralho* mesa,PilhaBaralho* baralho){
-    printf("\n\033[1;32m\033[42mRecolocando mesa no baralho\033[0m\n");
+    printf("\033[1;32mEmbaralhando cartas da mesa para colocar no baralho\033[0m\n");
     Carta cartaDeCimaDaMesa = desempilhaPilhaEnc(mesa);
     embaralhaPilhaEnc(mesa);
 

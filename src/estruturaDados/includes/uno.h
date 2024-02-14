@@ -26,5 +26,5 @@ void escolherCorPorTerJogadoCartaEspecial(StatusJogada* statusJogada);
 
 void mostrarCorEscolhida(StatusJogada* statusJogada);
 
-void mostrarOpcaoCompraBaralho();
+void mostrarOpcaoCompraBaralho(Jogador* jogador);
 #endif
