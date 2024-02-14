@@ -79,7 +79,7 @@ void imprimeJogadores(Jogador *primeiro) {
 //    printf("-----------------------------------------\n");
 //    for(aux = lista->prim; aux != NULL; aux = aux->prox)
 //       printf("%d | %d (%d)\n", aux->carta.cor,
-//                                aux->carta.valorCor,
+//                                aux->carta.valorCarta,
 //                                aux->carta.especiais);
 //    printf("-----------------------------------------\n");
 // }

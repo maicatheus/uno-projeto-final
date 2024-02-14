@@ -6,6 +6,7 @@
 #include "estruturaDados/includes/pilha_enc.h"
 #include "estruturaDados/includes/jogador.h"
 #include "estruturaDados/includes/lista_enc.h"
+#include "estruturaDados/includes/uno.h"
 #include "raylib.h"
 
 
@@ -56,27 +57,25 @@ int main(){
     // int i = 0;
     // while (!vaziaPilhaEnc(baralho)){
     //     infoAux = desempilhaPilhaEnc(baralho);
-    //     printf("%d -> %d | %d (%d)\n",i+1, infoAux.cor, infoAux.valorCor, infoAux.especiais);
+    //     printf("%d -> %d | %d (%d)\n",i+1, infoAux.cor, infoAux.valorCarta, infoAux.especiais);
     //     i++;
     // }
     
-    int gameOver = 0;
+    StatusJogada* statusJogada = contrutorStatusJogada();
 
     Jogador *jogadorAtual = listaJogadores;
     PilhaBaralho * mesa = criaPilhaEnc();
-
-    while(!gameOver){
+    Carta cartaMesa;
+    while(!statusJogada->gameOver){
 
         if(mesa->topo == NULL){
             Carta carta = desempilhaPilhaEnc(baralho);
             empilhaPilhaEnc(mesa,carta);
         }
 
-        printf("\n\nMESA: \n");
-        
-        mostrarCarta(mesa->topo->carta);
-        mostrarMao(jogadorAtual);
+        cartaMesa = mesa->topo->carta;
 
+        efetuarJogada(jogadorAtual,mesa,statusJogada);
         printf("Aperte enter para continuar\n");
         getchar();
         jogadorAtual = jogadorAtual->prox;

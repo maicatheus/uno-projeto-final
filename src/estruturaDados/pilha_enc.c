@@ -20,13 +20,13 @@ void inicializaBaralho(PilhaBaralho *baralho){
     for (int cor = VERMELHO; cor <= VERDE; cor++){
         for (int valor = ZERO; valor <= COMPRA_DOIS; valor++){
             cartas[tamanhoBaralho].cor = cor;
-            cartas[tamanhoBaralho].valorCor = valor;
+            cartas[tamanhoBaralho].valorCarta = valor;
             cartas[tamanhoBaralho].especiais = -1;
             tamanhoBaralho++;
 
             if (valor != ZERO){     // Zero tem apenas um por cor, enquanto os demais numeros tem dois
                 cartas[tamanhoBaralho].cor = cor;
-                cartas[tamanhoBaralho].valorCor = valor;
+                cartas[tamanhoBaralho].valorCarta = valor;
                 cartas[tamanhoBaralho].especiais = -1;
                 tamanhoBaralho++;
             }
@@ -36,7 +36,7 @@ void inicializaBaralho(PilhaBaralho *baralho){
     for (int esp = MUDA_COR; esp <= COMPRA_QUATRO; esp++){     // Adicionando as cartas especiais
         for (int i = 0; i < 4; i++){
             cartas[tamanhoBaralho].cor = -1;
-            cartas[tamanhoBaralho].valorCor = -1;
+            cartas[tamanhoBaralho].valorCarta = -1;
             cartas[tamanhoBaralho].especiais = esp;
             tamanhoBaralho++;
         }

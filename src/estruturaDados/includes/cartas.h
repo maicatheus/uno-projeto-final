@@ -4,11 +4,11 @@
 
 typedef enum {VERMELHO=0, AMARELO, AZUL, VERDE} Cores;
 typedef enum {ZERO=0, UM, DOIS, TRES, QUATRO, CINCO, SEIS, SETE, OITO, NOVE, PULA, INVERTE, COMPRA_DOIS} ValoresCor;
-typedef enum {MUDA_COR, COMPRA_QUATRO} Especiais;
+typedef enum {MUDA_COR=99, COMPRA_QUATRO=100} Especiais;
 
 typedef struct carta{
     Cores cor;
-    ValoresCor valorCor;
+    ValoresCor valorCarta;
     Especiais especiais;
 } Carta;
 
@@ -18,6 +18,5 @@ const char* nomeEspecial(Especiais especial);
 
 const char* nomeValor(ValoresCor valor);
 
-void mostrarCarta(Carta carta);
-
+void mostrarCarta(Carta carta, int index);
 #endif

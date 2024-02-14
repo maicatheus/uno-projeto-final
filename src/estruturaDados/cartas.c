@@ -62,7 +62,11 @@ const char* nomeEspecial(Especiais especial) {
     }
 }
 
-void mostrarCarta(Carta carta) {
-    printf("\t%-10s\t| %-10s\t| %-15s\n", nomeCor(carta.cor), nomeValor(carta.valorCor), nomeEspecial(carta.especiais));
+
+void mostrarCarta(Carta carta, int index) {
+    if(index == -1)
+        printf("\t%-15s\t| %-10s\t| %-7s\n", nomeCor(carta.cor), nomeValor(carta.valorCarta), nomeEspecial(carta.especiais));
+    else
+        printf("\t%-3d\t%-10s\t| %-7s\t| %-7s\n",index, nomeCor(carta.cor), nomeValor(carta.valorCarta), nomeEspecial(carta.especiais));
 }
 
