@@ -125,3 +125,16 @@ void embaralhaPilhaEnc(PilhaBaralho *pilha) {
         pilha->topo = nodos[i];
     }
 }
+
+void colocaMesaNoBaralho(PilhaBaralho* mesa,PilhaBaralho* baralho){
+    Carta cartaDeCimaDaMesa = desempilhaPilhaEnc(mesa);
+    embaralhaPilhaEnc(mesa);
+
+    while(!vaziaPilhaEnc(mesa)){
+        Carta carta = desempilhaPilhaEnc(mesa);
+        empilhaPilhaEnc(baralho,carta);
+    }
+    
+    empilhaPilhaEnc(mesa,cartaDeCimaDaMesa);
+
+}

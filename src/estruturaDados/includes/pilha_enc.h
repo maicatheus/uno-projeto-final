@@ -25,4 +25,6 @@ int vaziaPilhaEnc(PilhaBaralho* pilha);
 
 void embaralhaPilhaEnc(PilhaBaralho *pilha);
 
+void colocaMesaNoBaralho(PilhaBaralho* mesa,PilhaBaralho* baralho);
+
 #endif

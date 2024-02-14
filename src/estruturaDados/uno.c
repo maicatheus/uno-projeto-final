@@ -8,6 +8,10 @@
 
 void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, StatusJogada* statusJogada) {
 
+    if(vaziaPilhaEnc(baralho)){
+        colocaMesaNoBaralho(mesa,baralho);
+    }
+
     statusJogada->jogadaPermitida = 0;
 
     printf("\n\nMESA:\n");
@@ -25,7 +29,7 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, S
     int flgContinuar = 0;
     do {
         printf("\n\nEscolha uma opcao: ");
-        char input[2]; // Usando uma string para lidar tanto com números como com 'c'
+        char input[2];
         scanf("%s", input);
         getchar();
 
@@ -36,8 +40,7 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, S
             continue;
         }
 
-        opc = atoi(input); // Converte a string para inteiro
-
+        opc = atoi(input);
         if (opc <= 0 || opc > maoDoJogador->numCartas) {
             printf("Número inválido. Escolha um número dentro do intervalo de cartas ou 'c' para comprar.\n");
             continue; 
