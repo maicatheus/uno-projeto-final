@@ -16,7 +16,7 @@ typedef struct statusJogada{
 
 StatusJogada* contrutorStatusJogada();
 
-void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, StatusJogada* statusJogada);
+void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, StatusJogada* statusJogada);
 
 void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa, StatusJogada* statusJogada);
 
@@ -25,4 +25,6 @@ int checarEspecialOuSacanas(StatusJogada* statusJogada);
 void escolherCorPorTerJogadoCartaEspecial(StatusJogada* statusJogada);
 
 void mostrarCorEscolhida(StatusJogada* statusJogada);
+
+void mostrarOpcaoCompraBaralho();
 #endif

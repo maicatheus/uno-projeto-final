@@ -94,7 +94,7 @@ int main(){
                 }
             }
         }
-        efetuarJogada(jogadorAtual,mesa,statusJogada);
+        efetuarJogada(jogadorAtual,mesa,baralho, statusJogada);
         printf("Aperte enter para continuar\n");
         getchar();
         if(flgSentidoHorario)

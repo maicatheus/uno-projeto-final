@@ -6,7 +6,7 @@
 #include "includes/uno.h"
 #include "includes/cartas.h"
 
-void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, StatusJogada* statusJogada) {
+void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa,PilhaBaralho* baralho, StatusJogada* statusJogada) {
 
     statusJogada->jogadaPermitida = 0;
 
@@ -19,16 +19,27 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, StatusJogada* statusJog
     ListaEnc* maoDoJogador = jogador->mao;
 
     mostrarMao(jogador);
+    mostrarOpcaoCompraBaralho();
 
     int opc;
     int flgContinuar = 0;
     do {
-        printf("\n\nEscolha uma carta para jogar:\n");
-        scanf("%d", &opc);
+        printf("\n\nEscolha uma opcao: ");
+        char input[2]; // Usando uma string para lidar tanto com números como com 'c'
+        scanf("%s", input);
         getchar();
 
+        if (input[0] == 'c') {
+            comprarCartas(jogador, baralho, 1);
+            mostrarMao(jogador);
+            mostrarOpcaoCompraBaralho();
+            continue;
+        }
+
+        opc = atoi(input); // Converte a string para inteiro
+
         if (opc <= 0 || opc > maoDoJogador->numCartas) {
-            printf("Número inválido. Escolha um número dentro do intervalo de cartas.\n");
+            printf("Número inválido. Escolha um número dentro do intervalo de cartas ou 'c' para comprar.\n");
             continue; 
         }
 
@@ -53,7 +64,6 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, StatusJogada* statusJog
 
     } while (!flgContinuar);
 }
-
 
 void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa, StatusJogada* statusJogada) {
 
@@ -134,4 +144,8 @@ StatusJogada* contrutorStatusJogada(){
         statusJogada->carta.valorCarta =0;
     
     return statusJogada;
+}
+
+void mostrarOpcaoCompraBaralho(){
+    printf("\t%-3s\t%-10s\t\n","c", "comprar uma ");
 }
