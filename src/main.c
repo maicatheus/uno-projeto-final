@@ -9,7 +9,8 @@
 #include "estruturaDados/includes/uno.h"
 #include "raylib.h"
 
-
+#define NUM_MAX_PLAYERS 10
+#define NUM_MIN_PLAYERS 2
 
 int main(){
 
@@ -21,14 +22,14 @@ int main(){
 
     int numJogadores = 0;
     do {
-        printf("Quantos jogadores vão jogar? (entre 2 e 4): ");
+        printf("Quantos jogadores vão jogar? (entre %d e %d): ", NUM_MIN_PLAYERS, NUM_MAX_PLAYERS);
         scanf("%d", &numJogadores);
         getchar();
 
-        if (numJogadores < 2 || numJogadores > 4) {
+        if (numJogadores < NUM_MIN_PLAYERS || numJogadores > NUM_MAX_PLAYERS) {
             printf("Número inválido de jogadores. Por favor, insira um número entre 2 e 4.\n");
         }
-    } while (numJogadores < 2 || numJogadores > 4);
+    } while (numJogadores < NUM_MIN_PLAYERS || numJogadores > NUM_MAX_PLAYERS);
 
     Jogador *listaJogadores = NULL;
 
