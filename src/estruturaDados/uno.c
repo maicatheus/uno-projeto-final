@@ -30,9 +30,9 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
         mostrarMao(jogador);
         mostrarOpcaoCompraBaralho(jogador);
 
-        if (erro) { 
-            printf("\033[1;31mErro: %s\033[0m\n", "Número inválido. Escolha um número dentro do intervalo de cartas ou 'c' para comprar.");
-            erro = 0; 
+        if (erro) {
+            printf("\033[1;31mErro: %s\033[0m\n", "Numero invalido. Escolha um numero dentro do intervalo de cartas ou 'c' para comprar.");
+            erro = 0;
         }
 
         printf("\n\nEscolha uma opcao: ");
@@ -43,7 +43,7 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
         if(jogador->mao->numCartas > 1){
             jogador->disseUno = 0;
         }
-        
+
         if (input[0] == 'u') {
             jogador->disseUno = 1;
             continue;
@@ -56,14 +56,14 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
 
         opc = atoi(input);
         if (opc <= 0 || opc > maoDoJogador->numCartas) {
-            erro = 1; 
+            erro = 1;
             continue;
         }
 
         NodoBaralho* nodoBaralhoJogador = buscarCartaBaralhoAPartirDoIndice(maoDoJogador, opc);
         Carta carta = nodoBaralhoJogador->carta;
         if (nodoBaralhoJogador == NULL) {
-            erro = 1; 
+            erro = 1;
             continue;
         }
 
@@ -79,10 +79,10 @@ void efetuarJogada(Jogador* jogador, PilhaBaralho* mesa, PilhaBaralho* baralho, 
         }
 
         if(jogador->mao->numCartas == 0 && jogador->disseUno==0){
-            printf("\033[1;31mErro: %s\033[0m\n", "Esqueceu de gritar uno! Comprando 5 cartas.");
+            printf("\033[1;31mErro: %s\033[0m\n", "Esqueceu de gritar Uno! Comprando 5 cartas.");
             comprarCartas(jogador,baralho,mesa,5);
         }
-            
+
         if(jogador->mao->numCartas == 0 && jogador->disseUno==1){
             printf("\033[0;32mGANHOU!!!: JOGADOR %s!!\033[0m\n", jogador->nome);
             statusJogada->gameOver=1;
@@ -96,14 +96,14 @@ void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa
 
 
     if (statusJogada->jogadaEspecial == 0){
-        if (nodoBaralhoJogador->carta.valorCarta == nodoBaralhoMesa->carta.valorCarta || 
+        if (nodoBaralhoJogador->carta.valorCarta == nodoBaralhoMesa->carta.valorCarta ||
             nodoBaralhoJogador->carta.cor == nodoBaralhoMesa->carta.cor) {
                 statusJogada->jogadaPermitida = 1;
                 statusJogada->jogadaEspecial = 0;
                 statusJogada->jogadaSacana = 0;
         }
         else {
-            statusJogada->jogadaPermitida = 0;   
+            statusJogada->jogadaPermitida = 0;
             statusJogada->jogadaEspecial = 0;
             statusJogada->jogadaSacana = 0;
         }
@@ -118,7 +118,7 @@ void validarJogada(NodoBaralho* nodoBaralhoJogador, NodoBaralho* nodoBaralhoMesa
         (nodoBaralhoJogador->carta.valorCarta == PULA ||
         nodoBaralhoJogador->carta.valorCarta == INVERTE ||
         nodoBaralhoJogador->carta.valorCarta == COMPRA_DOIS)){
-    
+
             statusJogada->jogadaEspecial = 0;
             statusJogada->jogadaSacana = 1;
             statusJogada->carta.valorCarta = nodoBaralhoJogador->carta.valorCarta;
@@ -152,7 +152,7 @@ StatusJogada* contrutorStatusJogada(){
         statusJogada->carta.cor = 0;
         statusJogada->carta.especiais =0;
         statusJogada->carta.valorCarta =0;
-    
+
     return statusJogada;
 }
 

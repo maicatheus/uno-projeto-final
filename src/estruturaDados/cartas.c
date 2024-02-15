@@ -93,8 +93,8 @@ const char* nomeEspecial(Especiais especial) {
 }
 
 void mostrarCarta(Carta carta, int index) {
-    const char* corTexto = corANSI(carta.cor); 
-    const char* corFundo = corFundoANSI(carta.cor); 
+    const char* corTexto = corANSI(carta.cor);
+    const char* corFundo = corFundoANSI(carta.cor);
 
     if (index == -1)
         printf("\t%s%-15s\033[0m | %-10s | %-7s\033[0m\n", corFundo, nomeCor(carta.cor), nomeValor(carta.valorCarta), nomeEspecial(carta.especiais));
@@ -103,7 +103,7 @@ void mostrarCarta(Carta carta, int index) {
 }
 
 void mostrarCorEscolhida(StatusJogada* statusJogada) {
-    const char* corTexto = corANSI(statusJogada->carta.cor); 
+    const char* corTexto = corANSI(statusJogada->carta.cor);
     const char* corFundo = corFundoANSI(statusJogada->carta.cor);
 
     // Imprime a cor escolhida com o fundo colorido
@@ -111,11 +111,11 @@ void mostrarCorEscolhida(StatusJogada* statusJogada) {
 }
 
 void escolherCorPorTerJogadoCartaEspecial(StatusJogada* statusJogada) {
-    printf("Escolha a cor da próxima jogada:\n");
+    printf("Escolha a cor da proxima jogada:\n");
 
     for (int cor = VERMELHO; cor <= VERDE; cor++) {
-        const char* corTexto = corANSI(cor); 
-        const char* corFundo = corFundoANSI(cor); 
+        const char* corTexto = corANSI(cor);
+        const char* corFundo = corFundoANSI(cor);
 
         printf("%s%-3d\033[0m %s%-10s\033[0m\n", corFundo, cor, corTexto, nomeCor(cor));
     }
