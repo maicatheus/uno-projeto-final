@@ -7,12 +7,30 @@
 #include "estruturaDados/includes/jogador.h"
 #include "estruturaDados/includes/lista_enc.h"
 #include "estruturaDados/includes/uno.h"
-#include "raylib.h"
+//#include "raylib.h"
 
 #define NUM_MAX_PLAYERS 10
 #define NUM_MIN_PLAYERS 2
 
 int main(){
+
+
+    char input;
+    printf("#===================#\n");
+    printf("| Bem-vindo ao Uno! |\n");
+    printf("#===================#\n");
+    printf("\n");
+    printf("#===================#\n");
+    printf("| N - Novo Jogo     |\n");
+    printf("| S - Sair do Jogo  |\n");
+    printf("#===================#\n");
+
+    while (input != 'S' || input != 's'){
+
+    printf("--> Selecione uma opcao: ");
+    scanf(" %c", &input);
+
+    if (input == 'N' || input == 'n'){
 
     PilhaBaralho *baralho;
     baralho = criaPilhaEnc();
@@ -22,12 +40,12 @@ int main(){
 
     int numJogadores = 0;
     do {
-        printf("Quantos jogadores vão jogar? (entre %d e %d): ", NUM_MIN_PLAYERS, NUM_MAX_PLAYERS);
+        printf("Quantos jogadores vao jogar? (entre %d e %d): ", NUM_MIN_PLAYERS, NUM_MAX_PLAYERS);
         scanf("%d", &numJogadores);
         getchar();
 
         if (numJogadores < NUM_MIN_PLAYERS || numJogadores > NUM_MAX_PLAYERS) {
-            printf("Número inválido de jogadores. Por favor, insira um número entre 2 e 4.\n");
+            printf("Numero invalido de jogadores. Por favor, insira um numero entre 2 e 4.\n");
         }
     } while (numJogadores < NUM_MIN_PLAYERS || numJogadores > NUM_MAX_PLAYERS);
 
@@ -40,19 +58,19 @@ int main(){
         getchar();
 
 
-        Jogador *novoJogador = criaJogador(nomeJogador); 
-        insereJogador(&listaJogadores, novoJogador); 
+        Jogador *novoJogador = criaJogador(nomeJogador);
+        insereJogador(&listaJogadores, novoJogador);
 
         ListaEnc *mao = criaListaEnc();
         for(int k=0; k<7; k++){
             Carta carta = desempilhaPilhaEnc(baralho);
-            
-            insereListaEnc(mao, carta);            
+
+            insereListaEnc(mao, carta);
         }
 
         novoJogador->mao = mao;
     }
-    
+
     StatusJogada* statusJogada = contrutorStatusJogada();
 
     Jogador *jogadorAtual = listaJogadores;
@@ -70,16 +88,16 @@ int main(){
         cartaMesa = mesa->topo->carta;
 
         int ehSacanaOuEspecial = checarEspecialOuSacanas(statusJogada);
-        
+
         while(flgPrimeiraRodada){
             if(cartaMesa.especiais == MUDA_COR || cartaMesa.especiais == COMPRA_QUATRO ||
-                cartaMesa.valorCarta == PULA || cartaMesa.valorCarta == INVERTE || 
+                cartaMesa.valorCarta == PULA || cartaMesa.valorCarta == INVERTE ||
                 cartaMesa.valorCarta == COMPRA_DOIS){
                 cartaMesa = desempilhaPilhaEnc(baralho);
                 empilhaPilhaEnc(mesa,cartaMesa);
             }else
                 flgPrimeiraRodada = 0;
-        } 
+        }
 
         //IMPLEMENTAR =-=-=-=-=-=- DEVOLVER O COMPRA QUADRO PRO BARALHO SE FOR A CARTA
         if(ehSacanaOuEspecial){
@@ -117,6 +135,13 @@ int main(){
             jogadorAtual = jogadorAtual->prox;
         else
             jogadorAtual = jogadorAtual->ant;
+    }
+    }else if (input == 's' || input == 'S'){
+        break;
+    }else{
+        printf("Opcao invalida\n");
+    }
+
     }
     return 0;
 }
